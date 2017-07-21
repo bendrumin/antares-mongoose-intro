@@ -21,10 +21,25 @@ router.delete('/:id', function(req, res) {
 
 router.put('/:id', function(req, res) {
   console.log('new location: ', req.body);
-
   Person.findByIdAndUpdate(
     { _id: req.params.id }, // how do i find this document?
     { $set: { location: req.body.location } }, // data to replace
+    function(err, data) {
+      if(err) {
+        console.log('update error: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  )
+
+});
+router.put('/points/:id', function(req, res) {
+  console.log('new points: ', req.body.internetPoints);
+  Person.findByIdAndUpdate(
+    { _id: req.params.id }, // how do i find this document?
+    { $set: { internetPoints: req.body.internetPoints } }, // data to replace
     function(err, data) {
       if(err) {
         console.log('update error: ', err);

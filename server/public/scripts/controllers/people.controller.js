@@ -22,13 +22,21 @@ myApp.controller('PeopleController', ['$http', function($http) {
           getPeople();
         });
     }
+    vm.addPoints = function(id, internetPoints) {
+      console.log('update points with id: ', id);
+      var data = {internetPoints: internetPoints + 100};
+      $http.put('/person/points/' + id, data)
+        .then(function(response) {
+          getPeople();
+        });
+    }
 
     vm.deletePerson = function(id) {
       console.log('delete person with id: ', id);
       $http.delete('/person/' + id)
         .then(function(response) {
           getPeople();
-        })
+        });
     }
 
     function getPeople() {
